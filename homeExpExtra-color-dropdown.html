@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+
+        function App(porps){
+            function handleChange(e){
+                const confirmation = prompt(`the background color will be changed to ${e.target.value}`)
+                if(confirmation == 'yes'){
+                    document.body.style = `background: ${e.target.value}`
+                }else{
+                    document.body.style = `background: white`
+                }
+            }
+            
+            const colors = ['red', 'green', 'yellow', 'orange']
+
+            return(
+                <div>
+                    <h2> Colors: {colors.length} </h2>
+                    <select onChange={ handleChange }>
+                        <option value="">select</option>
+                            {
+                                colors.map(function (color, index){
+                                    return (
+                                        <option key ={index} value = {color}> { color } </option>
+                                    )
+                                })
+                            }
+                    </select>
+                </div>
+            )
+        }
+
+        ReactDOM.render(<App/>, rootHandle)
+
+    </script>
+</body>
+</html>

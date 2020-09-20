@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Exp Random Number</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+
+        class Number extends React.Component {
+
+            constructor() {
+                super()
+                this.state = {
+                    number: ''
+                }
+            }
+
+            handleChange = () => {
+                const number = Math.round(Math.random() * 10)
+                this.setState({number})
+            }
+
+            render() {
+                return(
+                    <div>
+                        <h1> Number Generater </h1>
+                        <h2> { this.state.number } </h2>
+                        <button onClick={ this.handleChange }> generate </button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Number />, rootHandle)
+    </script>
+</body>
+</html>

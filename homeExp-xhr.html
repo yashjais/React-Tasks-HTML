@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Checkbox</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="./../js/react.development.js"></script>
+    <script src="./../js/react-dom.development.js"></script>
+    <script src="./../js/babel.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root')
+        
+        class Xhr extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    users: []
+                }
+            }    
+
+            componentDidMount() {
+                const xhr = new XMLHttpRequest
+                xhr.open('Get','http://dct-ticket-master.herokuapp.com/customers/',true)
+                // xhr.setRequestHeader should be witten after .open() but before .send()
+                xhr.setRequestHeader('x-auth','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTEwYjlkOTc2ZGRmMTAwMTZhMDc1MzciLCJ1c2VybmFtZSI6Inlhc2g5NiIsImNyZWF0ZWRBdCI6MTU3ODI0MDc5MTc2OSwiaWF0IjoxNTc4MjQwNzkxfQ.yn9vyov7MIs3hifLD9YQH1wE9efImZbi-ekWr2VPJxM')
+                const users = []
+                xhr.send()
+                xhr.onload = function() {
+                    // console.log(JSON.parse(xhr.responseText))
+                    const  users = JSON.parse(xhr.responseText)
+                    console.log(users)
+                    // can do this.setState() here too, but i was experomenting with cb
+                    response.bind(this)(users)
+                }.bind(this)
+                function response(users){
+                    console.log('inside',users)
+                    this.setState({users})
+                }
+            }
+
+            render() {
+                return(
+                    <div>
+                        <h2>Listing Users - {this.state.users.length}</h2>
+                        <ul>
+                            {
+                                this.state.users.map(user => {
+                                    return(
+                                        <li key={user._id}>{user.name}</li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<Xhr />, rootHandle)
+
+    </script>
+</body>
+</html>

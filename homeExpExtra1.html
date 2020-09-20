@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Checkbox</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="./../js/react.development.js"></script>
+    <script src="./../js/react-dom.development.js"></script>
+    <script src="./../js/babel.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root')
+        const users = [
+            {id: 1, name: 'yash', email: 'yash@gmail.com'},
+            {id: 2, name: 'yashika', email: 'yashika@gmail.com'},
+            {id: 3, name: 'yashasvi', email: 'yashasvi@gmail.com'}
+        ]
+
+        function UsersList(props){
+            /*function check(user,val){
+                return value
+                if(val % 2 != 0){
+                    alert(`${user.name} has been Selected`)
+                }else{
+                    alert(`${user.name} has been Deselected`)
+                }
+            }*/
+            return(
+                <div>
+                <h2> Users: { props.obj.length } </h2>
+                    {
+                        props.obj.map(function(user){
+                            return (
+                                <p key={user.id}>  {/* It will give us an error if we create an input tag in the sane line and close in the same line*/}
+                                <input  type="checkbox">
+                                </input> {user.name} 
+                                </p>
+                            )
+                        })
+                    }
+                </div>
+            )
+        }
+        const ele = (
+            <UsersList obj={users}/>
+        )
+
+        ReactDOM.render(ele, rootHandle)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="./../js/react.development.js"></script>
+    <script src="./../js/react-dom.development.js"></script>
+    <script src="./../js/babel.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+        const employees = [
+            { id: 1, name: 'arjun', dept: 'tech', email: 'arjun@gmail.com'},
+            { id: 2, name: 'mani', dept: 'tech', email: 'mani@gmail.com'},
+            { id: 3, name: 'krithika', dept: 'finance', email: 'krithika@gmail.com'},
+            { id: 4, name: 'ashok', dept: 'tech', email: 'ashok@gmail.com'},
+            { id: 5, name: 'mohan', dept: 'finance', email: 'mohan@gmail.com'},
+            { id: 5, name: 'sohan', dept: 'admin', email: 'sohan@gmail.com'}
+        ]
+
+        const techEmployees = employees.filter(emp => emp.dept == 'tech')
+        const financeEmployees = employees.filter(emp => emp.dept == 'finance')
+        const adminEmployees = employees.filter(emp => emp.dept == 'admin')
+
+        // function component 
+            // function name is pascal case - {capitalize - UsersListing} // different than camelCase
+            // functions accept 1 parameter called as props
+            // function returns react elements or jsx 
+
+        function EmployeesList(props){
+            function sayHi(){
+                alert('Hello')
+            }
+            function handleClick(emp){
+                alert(emp.email)
+            }
+            return(
+                <div>
+                    <h2>{props.name.toUpperCase()} - {props.employees.length} </h2>
+                    <ul>
+                    {
+                        props.employees.map(employee => {
+                            return <li key={employee.id}> {employee.name}
+                                <button onClick = {sayHi}> say hi </button> 
+                                <button onClick={() => {
+                                handleClick(employee)
+                            }}> show </button> </li>
+                        })
+                    }
+                    </ul>
+                </div>
+            )
+        }
+        const ele = (
+            <div>
+                { EmployeesList({name: 'Tech', employees: techEmployees}) }
+                <EmployeesList name="Finance" employees={financeEmployees} />
+                <EmployeesList name="Admin" employees={adminEmployees} />
+            </div>
+        )
+        ReactDOM.render(ele, rootHandle)
+    </script>
+</body>
+</html>

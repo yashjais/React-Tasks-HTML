@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="./../js/react.development.js"></script>
+    <script src="./../js/react-dom.development.js"></script>
+    <script src="./../js/babel.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+        // const ele = React.createElement('h1', {}, 'Hello React')
+        const current = new Date()
+        const time = current.getHours()
+        const name = 'Yash'
+        let ele
+        if(time < 12){
+            ele = `Good Morning`
+        }else if(time < 17){
+            ele = `Good Afternoon`
+        }else{
+            ele = `Good Evening`
+        }
+        let greet = <h1> {ele} {name} </h1>
+
+        ReactDOM.render(greet, rootHandle)
+
+    </script>
+</body>
+</html>

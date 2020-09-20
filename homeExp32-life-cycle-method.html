@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+    <script src="../js/axios.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+         
+        class LifeCycle extends React.Component{
+            constructor() {
+                super()
+                this.state = {
+                    msg: 'Hi there',
+                    count: 0
+                }
+                this.handleClick = this.handleClick.bind(this)
+                console.log('constructor')
+            }
+            handleClick(){
+                console.log('clicked')
+                this.setState((prevState) => {
+                    return {
+                        count: prevState.count + 1
+                    }
+                })
+                console.log(this.state)
+            }
+            // if we want the updated state value within the function, then we have to pass a callback function to the setstate method, within this function we now have access to the updated state value
+            // coz setState() method is asynchronus in nature
+
+            componentDidMount() {
+                console.log('component did mount')
+            }
+
+            // this method is obsolete now, we will not use it
+            // componentWillMount() {
+            //     console.log('component will mount')
+            // }
+
+            render() {
+                return (
+                    <div> 
+                        {console.log('render')}
+                        <h1>Hello World</h1>
+                        <p>{this.state.count}</p>
+                       <button onClick={this.handleClick}> up </button> 
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<LifeCycle/>, rootHandle)
+    </script>
+</body>
+</html>

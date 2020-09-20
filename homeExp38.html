@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UpdateState</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+    <script src="../js/axios.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+
+        class Update extends React.Component {
+            constructor() {
+                super() 
+                this.state = {
+                   count: 0
+                }
+                this.handleUp = this.handleUp.bind(this)
+                this.handleDown = this.handleDown.bind(this)
+            }
+
+            handleUp(){
+                this.setState(prevState => ({
+                    count: prevState.count + 1
+                }))
+            }
+
+            handleDown(){
+                this.setState(prevState => ({
+                    count: prevState.count - 1
+                }))
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2> Counter: { this.state.count } </h2>
+                        <br/>
+                        <Button name="up" handleClick={this.handleUp} />
+                        <Button name="down" handleClick={this.handleDown} />
+                    </div>
+                )
+            }
+        }
+
+        function Button(props){
+            return (
+                <button onClick={props.handleClick}> {props.name} </button>
+            )
+        }
+
+        ReactDOM.render(<Update />, rootHandle)
+
+    </script>
+</body>
+</html>

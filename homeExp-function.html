@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+    <script src="../js/axios.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root')
+
+        const employees = [
+            { id: 1, name: 'arjun', dept: 'tech'},
+            { id: 2, name: 'mani', dept: 'tech'},
+            { id: 3, name: 'krithika', dept: 'finance'},
+            { id: 4, name: 'ashok', dept: 'tech'},
+            { id: 5, name: 'mohan', dept: 'finance'},
+        ]
+
+        const employeesTech = employees.filter(ele => ele.dept == 'tech')
+        const employeesFinance = employees.filter(ele => ele.dept == 'finance')
+
+        function App(props){
+            return(
+                <div>
+                <h1> Listing Employees {props.name} - {props.employees.length} </h1>
+                <ul>
+                    {
+                        props.employees.map(employee => {
+                            return <li key={employee.id}> {employee.name} </li>
+                        })
+                    }
+                </ul>
+                </div>
+            )
+        }
+
+        const ele = (
+            <div>
+                <App name='tech' employees={employeesTech} />
+                <App name='finance' employees={employeesFinance} />
+            </div>
+        )
+
+        ReactDOM.render(ele, rootHandle)
+        
+    </script>
+</body>
+</html>

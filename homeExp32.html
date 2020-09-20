@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+    <script src="../js/axios.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+        class Axios extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    users: []
+                }
+            }
+            componentDidMount() {
+                axios.get('http://jsonplaceholder.typicode.com/users')
+                    .then((response) => {
+                        const users = response.data
+                        this.setState({users})
+                    })
+                    //.catch
+                //this.setState()
+            }
+            render() {
+                return(
+                    <div> 
+                        <h2> Listing Users: {this.state.users.length}</h2>
+                        <ul>
+                            {
+                                this.state.users.map(user => {
+                                    return <li key={user.id}> {user.name} </li>
+                                })
+                            }
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Axios />, rootHandle)
+    </script>
+</body>
+</html>
+

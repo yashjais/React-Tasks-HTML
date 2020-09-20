@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fetch Data</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+    <script src="../js/axios.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+        class UsersList extends React.Component {
+            constructor() {
+                super()
+                this.state = {
+                    users: []
+                }
+            }
+
+            componentDidMount() {
+                const xhr = new XMLHttpRequest
+                xhr.open('GET', "http://jsonplaceholder.typicode.com/users")
+                xhr.send()
+                xhr.onload = () => {
+                    const users = JSON.parse(xhr.responseText)
+                    console.log(users, this)
+                    // this refer to xhr object if we use regular es5 function so we have to use the arrow function
+                    this.setState({users})
+                }
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2> Listing users: {this.state.users.length} </h2>
+                        <ul> 
+                            {
+                                this.state.users.map(user => {
+                                    return <li key={user.id}> {user.name} </li>
+                                })
+                            }
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<UsersList />, rootHandle)
+    </script>
+</body>
+</html>

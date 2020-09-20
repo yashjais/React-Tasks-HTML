@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "root">
+
+    </div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+    <script src="../js/axios.js"></script>
+    <script type="text/babel">
+        const rootHandle = document.getElementById('root') 
+
+        class Xhr extends React.Component {
+            constructor() {
+                super()
+                this.state ={
+                    users: []
+                }
+            }
+            componentDidMount() {
+                const xhr = new XMLHttpRequest
+                
+                xhr.open('GET', 'http://jsonplaceholder.typicode.com/users')//, false) //can't able to send the synchronus requset // Error: Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience.
+
+                xhr.send()
+                xhr.onload = () => {
+                    const  users = JSON.parse(xhr.responseText)
+                    console.log(users)
+                    this.setState({users})
+                }
+                // on progress not working
+                xhr.onprogress = function(event) { // triggers periodically
+                // event.loaded - how many bytes downloaded
+                // event.lengthComputable = true if the server sent Content-Length header
+                // event.total - total number of bytes (if lengthComputable)
+                console.log(`Received ${event.loaded} of ${event.total}`);
+                };
+
+            }
+            render() {
+                return (
+                    <div> 
+                        <h2> Users: {this.state.users.length} </h2>
+                        <ul>
+                            {
+                                this.state.users.map((user,i) => {
+                                    return <li key={i}> {user.name} </li>
+                                })
+                            }
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Xhr />, rootHandle)
+    </script>
+</body>
+</html>
